@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Research Opportunity Portal</title>
+    <!-- Bootstrap CSS for simple styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Our custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- NAVBAR -->
+    <!-- ============================================ -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">University Research Opportunity Portal</a>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT -->
+    <!-- ============================================ -->
+    <div class="container mt-4">
+
+        <!-- Success / Error Message Area -->
+        <div id="message-area" aria-live="polite"></div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 1: FORM TO CREATE / UPDATE OPPORTUNITY -->
+        <!-- ============================================ -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0" id="form-title">Create New Research Opportunity</h2>
+            </div>
+            <div class="card-body">
+                <form id="opportunity-form">
+                    <!-- Hidden field to store ID when editing -->
+                    <input type="hidden" id="opportunity-id">
+
+                    <div class="row">
+                        <!-- Research Title -->
+                        <div class="col-md-6 mb-3">
+                            <label for="title" class="form-label">Research Title *</label>
+                            <input type="text" class="form-control" id="title" placeholder="Enter research title" required>
+                        </div>
+
+                        <!-- Research Area -->
+                        <div class="col-md-6 mb-3">
+                            <label for="research_area" class="form-label">Research Area *</label>
+                            <input type="text" class="form-control" id="research_area" placeholder="e.g., Artificial Intelligence" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Faculty Name -->
+                        <div class="col-md-6 mb-3">
+                            <label for="faculty_name" class="form-label">Faculty Member's Name *</label>
+                            <input type="text" class="form-control" id="faculty_name" placeholder="e.g., Dr. Ahmed Khan" required>
+                        </div>
+
+                        <!-- Department -->
+                        <div class="col-md-6 mb-3">
+                            <label for="department" class="form-label">Department *</label>
+                            <input type="text" class="form-control" id="department" placeholder="e.g., Computer Science" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Required Skills -->
+                        <div class="col-md-6 mb-3">
+                            <label for="required_skills" class="form-label">Required Skills *</label>
+                            <input type="text" class="form-control" id="required_skills" placeholder="e.g., Python, Machine Learning" required>
+                        </div>
+
+                        <!-- Number of Positions -->
+                        <div class="col-md-3 mb-3">
+                            <label for="positions" class="form-label">Positions *</label>
+                            <input type="number" class="form-control" id="positions" placeholder="e.g., 3" min="1" required>
+                        </div>
+
+                        <!-- Deadline -->
+                        <div class="col-md-3 mb-3">
+                            <label for="deadline" class="form-label">Deadline *</label>
+                            <input type="date" class="form-control" id="deadline" required>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Research Description *</label>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Describe the research opportunity..." required></textarea>
+                    </div>
+
+                    <!-- Status (only shown when editing) -->
+                    <div class="mb-3" id="status-group" hidden>
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status">
+                            <option value="Open">Open</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+
+                    <!-- Buttons -->
+                    <button type="submit" class="btn btn-primary" id="submit-btn">Create Opportunity</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn" hidden onclick="cancelEdit()">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 2: LIST OF ALL RESEARCH OPPORTUNITIES -->
+        <!-- ============================================ -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h2 class="h5 mb-0">All Research Opportunities</h2>
+            </div>
+            <div class="card-body">
+                <div id="opportunities-list" aria-live="polite">
+                    <p class="text-muted">Loading opportunities...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 3: DETAILS OF A SELECTED OPPORTUNITY -->
+        <!-- ============================================ -->
+        <div class="card mb-4" id="detail-card" hidden>
+            <div class="card-header bg-info text-white">
+                <h2 class="h5 mb-0">Opportunity Details</h2>
+            </div>
+            <div class="card-body" id="detail-content">
+                <!-- Details will be loaded here by JavaScript -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Our JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
