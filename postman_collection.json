@@ -1,0 +1,304 @@
+{
+  "info": {
+    "_postman_id": "8c81d332-034c-4c07-94d9-08c079871bd4",
+    "name": "University Research Opportunity Portal API",
+    "description": "Run requests in order to demonstrate three creates, list, get by ID, update, close, delete, deleted-record 404, and invalid-input validation. Created IDs are saved automatically, so this works with an empty or populated database.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "opportunity1Id",
+      "value": ""
+    },
+    {
+      "key": "opportunity2Id",
+      "value": ""
+    },
+    {
+      "key": "opportunity3Id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Create - AI in Healthcare",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Created (201)', function () { pm.response.to.have.status(201); });",
+              "pm.collectionVariables.set('opportunity1Id', pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"AI in Healthcare\",\n  \"description\": \"Research on machine learning methods for medical imaging.\",\n  \"research_area\": \"Artificial Intelligence\",\n  \"faculty_name\": \"Dr. Ahmed Khan\",\n  \"department\": \"Computer Science\",\n  \"required_skills\": \"Python, Machine Learning, TensorFlow\",\n  \"positions\": 3,\n  \"deadline\": \"2027-12-31\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/opportunities"
+      }
+    },
+    {
+      "name": "2. Create - Renewable Energy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Created (201)', function () { pm.response.to.have.status(201); });",
+              "pm.collectionVariables.set('opportunity2Id', pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Renewable Energy Systems\",\n  \"description\": \"Study of ways to improve solar panel efficiency.\",\n  \"research_area\": \"Energy Engineering\",\n  \"faculty_name\": \"Dr. Sara Ali\",\n  \"department\": \"Electrical Engineering\",\n  \"required_skills\": \"MATLAB, Circuit Design, Physics\",\n  \"positions\": 2,\n  \"deadline\": \"2027-11-30\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/opportunities"
+      }
+    },
+    {
+      "name": "3. Create - Blockchain for Supply Chain",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Created (201)', function () { pm.response.to.have.status(201); });",
+              "pm.collectionVariables.set('opportunity3Id', pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Blockchain for Supply Chain\",\n  \"description\": \"Build a blockchain-based supply chain tracking system.\",\n  \"research_area\": \"Blockchain Technology\",\n  \"faculty_name\": \"Dr. Usman Tariq\",\n  \"department\": \"Software Engineering\",\n  \"required_skills\": \"Solidity, JavaScript, Ethereum\",\n  \"positions\": 4,\n  \"deadline\": \"2028-01-15\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/opportunities"
+      }
+    },
+    {
+      "name": "4. Retrieve all opportunities",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('OK (200)', function () { pm.response.to.have.status(200); });",
+              "pm.test('Response is an array', function () { pm.expect(pm.response.json()).to.be.an('array'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/opportunities"
+      }
+    },
+    {
+      "name": "5. Retrieve the first created opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('OK (200)', function () { pm.response.to.have.status(200); });",
+              "pm.test('Returns the requested opportunity', function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get('opportunity1Id'))); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/opportunities/{{opportunity1Id}}"
+      }
+    },
+    {
+      "name": "6. Update the first opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Updated (200)', function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Advanced AI in Healthcare\",\n  \"description\": \"Research using deep learning for X-ray and MRI image analysis.\",\n  \"research_area\": \"Artificial Intelligence\",\n  \"faculty_name\": \"Dr. Ahmed Khan\",\n  \"department\": \"Computer Science\",\n  \"required_skills\": \"Python, Deep Learning, TensorFlow, PyTorch\",\n  \"positions\": 5,\n  \"deadline\": \"2028-03-31\",\n  \"status\": \"Open\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/opportunities/{{opportunity1Id}}"
+      }
+    },
+    {
+      "name": "7. Change the second opportunity from Open to Closed",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Closed successfully (200)', function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Renewable Energy Systems\",\n  \"description\": \"Study of ways to improve solar panel efficiency.\",\n  \"research_area\": \"Energy Engineering\",\n  \"faculty_name\": \"Dr. Sara Ali\",\n  \"department\": \"Electrical Engineering\",\n  \"required_skills\": \"MATLAB, Circuit Design, Physics\",\n  \"positions\": 2,\n  \"deadline\": \"2027-11-30\",\n  \"status\": \"Closed\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/opportunities/{{opportunity2Id}}"
+      }
+    },
+    {
+      "name": "8. Delete the third opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Deleted (200)', function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/opportunities/{{opportunity3Id}}"
+      }
+    },
+    {
+      "name": "9. Confirm deleted opportunity returns 404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Not found (404)', function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/opportunities/{{opportunity3Id}}"
+      }
+    },
+    {
+      "name": "10. Invalid input returns 400",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Validation error (400)', function () { pm.response.to.have.status(400); });",
+              "pm.test('Validation errors are explained', function () { pm.expect(pm.response.json().errors).to.be.an('array').that.is.not.empty; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"\",\n  \"description\": \"\",\n  \"research_area\": \"\",\n  \"faculty_name\": \"\",\n  \"department\": \"\",\n  \"required_skills\": \"\",\n  \"positions\": 0,\n  \"deadline\": \"not-a-date\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/opportunities"
+      }
+    }
+  ]
+}
